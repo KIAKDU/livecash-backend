@@ -36,7 +36,8 @@ app.use((req, res, next) => {
 const dbConfig = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  server: process.env.DB_SERVER,
+  server: process.env.DB_SERVER.split(':')[0], // Extract IP from DB_SERVER (e.g., 192.168.254.150)
+  port: parseInt(process.env.DB_SERVER.split(':')[1]) || parseInt(process.env.DB_PORT) || 1433, // Use port from DB_SERVER or DB_PORT, fallback to 1433
   database: process.env.DB_NAME,
   options: {
     encrypt: false,
