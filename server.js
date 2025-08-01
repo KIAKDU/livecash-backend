@@ -16,7 +16,7 @@ app.use(
       'http://localhost:8081',
       'http://localhost:19006',
       'http://10.0.2.2:2030',
-      'https://keanu.taile0e3c2.ts.net',
+      'https://livecash-backend.onrender.com',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
