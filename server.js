@@ -36,12 +36,16 @@ app.use((req, res, next) => {
 const dbConfig = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  server: process.env.DB_SERVER.split(':')[0], // Extracts IP (e.g., 192.168.254.50)
-  port: parseInt(process.env.DB_SERVER.split(':')[1]) || parseInt(process.env.DB_PORT) || 1433, // Extracts port or uses DB_PORT
+  server: process.env.DB_SERVER.replace(/^https?:\/\//, ''), // Strip https:// or http:// to get hostname (e.g., heavy-ants-bet.loca.lt)
+  port: parseInt(process.env.DB_PORT) || 1433, // Use DB_PORT, fallback to 1433
   database: process.env.DB_NAME,
   options: {
     encrypt: false,
     trustServerCertificate: true,
+  },
+  requestTimeout: 30000,
+  headers: {
+    'bypass-tunnel-reminder': 'true', // Bypass LocalTunnel reminder
   },
   pool: {
     max: 10,
