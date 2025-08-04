@@ -36,17 +36,23 @@ app.use((req, res, next) => {
 const dbConfig = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  server: process.env.DB_SERVER,
-  database: process.env.DB_NAME,
+  server: process.env.DB_SERVER, // Will use 119.93.171.187
+  database: process.env.DB_NAME, // Will use TESTPettyCash
+  port: parseInt(process.env.DB_PORT) || 1433,
   options: {
-    encrypt: false,
-    trustServerCertificate: true,
+    encrypt: true, // Enable for secure connections
+    trustServerCertificate: true, // Use true for self-hosted SQL Server with self-signed certs
+    cryptoCredentialsDetails: {
+      minVersion: 'TLSv1.2' // Ensure secure TLS version
+    }
   },
   pool: {
     max: 10,
     min: 0,
-    idleTimeoutMillis: 30000,
+    idleTimeoutMillis: 30000
   },
+  connectionTimeout: 30000, // 30 seconds
+  requestTimeout: 30000 // 30 seconds
 };
 
 // Database Connection with Reconnection Logic
