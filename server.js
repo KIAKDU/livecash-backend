@@ -40,10 +40,11 @@ const dbConfig = {
   database: process.env.DB_NAME, // Will use TESTPettyCash
   port: parseInt(process.env.DB_PORT) || 1433,
   options: {
-    encrypt: true, // Enable for secure connections
+    encrypt: true, // Required for secure connections
     trustServerCertificate: true, // Use true for self-hosted SQL Server with self-signed certs
     cryptoCredentialsDetails: {
-      minVersion: 'TLSv1.2' // Ensure secure TLS version
+      minVersion: 'TLSv1.2', // Explicitly set TLS 1.2
+      maxVersion: 'TLSv1.2' // Restrict to TLS 1.2 to avoid protocol mismatch
     }
   },
   pool: {
