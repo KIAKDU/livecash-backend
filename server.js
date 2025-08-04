@@ -16,7 +16,7 @@ app.use(
       'http://localhost:8081',
       'http://localhost:19006',
       'http://10.0.2.2:2030',
-      'https://livecash-backend.onrender.com',
+      'https://keanu.taile0e3c2.ts.net',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
@@ -36,16 +36,11 @@ app.use((req, res, next) => {
 const dbConfig = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  server: process.env.DB_SERVER.replace(/^https?:\/\//, ''), // Strip https:// or http:// to get hostname (e.g., heavy-ants-bet.loca.lt)
-  port: parseInt(process.env.DB_PORT) || 1433, // Use DB_PORT, fallback to 1433
+  server: process.env.DB_SERVER,
   database: process.env.DB_NAME,
   options: {
     encrypt: false,
     trustServerCertificate: true,
-  },
-  requestTimeout: 30000,
-  headers: {
-    'bypass-tunnel-reminder': 'true', // Bypass LocalTunnel reminder
   },
   pool: {
     max: 10,
